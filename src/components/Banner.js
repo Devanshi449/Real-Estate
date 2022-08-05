@@ -1,26 +1,28 @@
 import React from 'react';
 
-import Image from '../assets/img/house-banner.png'
-import search from '../components/Search'
+import Image from '../assets/img/house-banner.png';
+import Search from '../components/Search';
 
 const Banner = () => {
   return ( 
   <section className='h-full max-h-[640px] mb-8 xl:mb-24'>
     <div className='flex flex-col lg:flex-row'>
-      <div>
-        <h1>
-          <span>Search Properties to Rent</span>
+      <div className='lg:ml-8 xl:ml-[135px] flex 
+      flex-col items-center lg:items-start text-center lg:text-left justify-center flex-1 px-4 lg:px-0'> 
+        <h1 className='text-4xl lg:text-[58px]  font-semibold leading-none mb-6'>
+          <span className='text-violet-700'>Search</span> Properties to Rent.
         </h1>
-        <p>
-          Discover a place you'll love to live. We will help you find a home that is perfect for you!
+        <p className='max-w-[480px] mb-8'>
+          Discover a place you will love to live. We will help you find a home that is perfect for you!
+          With homeland, search a place according to your preferences and make it happen!!!
         </p>
       </div>
       {/* image */}
-      <div>
+      <div className='hidden flex-1 lg:flex justify-end items-end'>
         <img src={Image} alt='' />
       </div>
     </div>
-    <search/>
+    <Search/>
   </section>
   
   );
