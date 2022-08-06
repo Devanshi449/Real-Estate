@@ -38,15 +38,19 @@ useEffect(()=>{
 
 const handleClick=()=>{
   
+  setLoading(true);
   // console.log('clicked');
   const isDefault=(str)=>{
-    return str.split(' ').includes('(any)');
+    return str.toString().split(' ').includes('(any)');
   };
 
-  const minPrice= parseInt(price.split(' ')[0]);
+  console.log(price.toString().split(' '));
 
-  const maxPrice=parseInt(price.split(' ')[2]);
-  // console.log(maxPrice);
+  const minPrice= parseInt(price.toString().split(' ')[0]);
+  console.log(minPrice);
+  
+  const maxPrice= parseInt(price.toString().split(' ')[2]);
+  console.log(maxPrice);
 
   const newHouses=housesData.filter((house)=>{
     const housePrice=parseInt(house.price);
@@ -61,10 +65,62 @@ const handleClick=()=>{
   ){
     return house;
   }
-  
+
+  if(isDefault(country) && isDefault(property) && isDefault(price))
+  {
+    return house;
+  }
+
+  if(!isDefault(country) && isDefault(property) && isDefault(price))
+  {
+    return house.country===country;
+  }
+
+  if(!isDefault(property) && isDefault(country) && isDefault(price))
+  {
+    return house.type===property;
+  }
+
+  if(!isDefault(price) && isDefault(country) && isDefault(property))
+  {
+    if(housePrice>=minPrice && housePrice <=maxPrice)
+    {
+      return house;
+    }
+  }
+
+  if(!isDefault(country) && !isDefault(property) && isDefault(price))
+  {
+    return house.country===country && house.type===property;
+  }
+
+  if(!isDefault(country) && isDefault(property) && !isDefault(price))
+  {
+    if(housePrice>=minPrice && housePrice<=maxPrice)
+    {
+      return house.country===country;
+    }
+  }
+
+  if(isDefault(country) && !isDefault(property) && !isDefault(price))
+  {
+    if(housePrice>=minPrice && housePrice<=maxPrice)
+    {
+      return house.type===property;
+    }
+  }
+
+
 });
-  console.log(newHouses);
+  setTimeout(()=>{
+    return (
+    newHouses.length<1? setHouses([]):
+    setHouses(newHouses),
+    setLoading(false)
+    );
+  },1000);
   // return newHouses;
+
 };
 
 return (
@@ -81,6 +137,7 @@ return (
     houses,
     loading,
     handleClick,
+    loading,
 
   }}
   >
